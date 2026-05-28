@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Beast Tracker — Gand Faad Routine</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.44.0/tabler-icons.min.css"/>
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  :root{
+    --bg:#0d0d0d;
+    --bg2:#161616;
+    --bg3:#1e1e1e;
+    --border:rgba(255,255,255,0.08);
+    --border2:rgba(255,255,255,0.14);
+    --text:#f0f0f0;
+    --text2:#888;
+    --text3:#555;
+    --red:#dc2626;
+    --red2:#b91c1c;
+    --red-bg:rgba(220,38,38,0.1);
+    --red-border:rgba(220,38,38,0.35);
+    --radius:10px;
+    --radius-lg:14px;
+  }
+  body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;padding:0;font-size:16px}
+  .app{width:min(1100px,100%);margin:0 auto;padding:clamp(1rem,2vw,1.5rem) clamp(.75rem,2vw,1rem) 4rem}
+
+  /* TOP BAR */
+  .topbar{display:flex;align-items:center;justify-content:space-between;margin-bottom:1.5rem;flex-wrap:wrap;gap:10px}
+  .logo{font-family:'Bebas Neue',sans-serif;font-size:clamp(1.9rem,6vw,2.3rem);letter-spacing:1px;color:var(--text)}
+  .logo span{color:var(--red)}
+  .streak-pill{background:var(--red-bg);border:0.5px solid var(--red-border);border-radius:20px;padding:6px 14px;font-size:14px;font-weight:500;color:#f87171;display:flex;align-items:center;gap:6px}
+
+  /* TABS */
+  .tabs{display:flex;gap:3px;background:var(--bg2);border:0.5px solid var(--border);border-radius:var(--radius);padding:3px;margin-bottom:1.5rem;width:100%;max-width:100%;flex-wrap:wrap}
+  .tab{flex:1 1 140px;padding:8px 18px;font-size:14px;font-weight:500;border-radius:8px;cursor:pointer;color:var(--text2);border:none;background:transparent;font-family:'DM Sans',sans-serif;transition:all 0.2s;text-align:center}
+  .tab:hover{color:var(--text)}
+  .tab.active{background:var(--bg3);color:var(--text);border:0.5px solid var(--border2)}
+  .section{display:none}.section.active{display:block}
+
+  /* DATE NAV */
+  .date-nav{display:flex;align-items:center;gap:10px;margin-bottom:1rem}
+  .date-nav button{background:var(--bg2);border:0.5px solid var(--border);border-radius:var(--radius);padding:6px 12px;cursor:pointer;color:var(--text);font-size:14px;transition:background 0.15s}
+  .date-nav button:hover{background:var(--bg3)}
+  .date-label{font-size:15px;font-weight:500;color:var(--text);flex:1}
+  .today-btn{font-size:13px;padding:6px 12px;color:var(--text2)}
+
+  /* SCORE BAR */
+  .score-bar{background:var(--bg2);border:0.5px solid var(--border);border-radius:var(--radius-lg);padding:1.1rem 1.25rem;margin-bottom:1rem;display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+  .score-num{font-family:'Bebas Neue',sans-serif;font-size:clamp(2rem,6vw,2.5rem);color:var(--text);min-width:70px;line-height:1}
+  .score-num sub{font-family:'DM Sans',sans-serif;font-size:14px;color:var(--text2);font-weight:400}
+  .progress-wrap{flex:1}
+  .progress-track{height:6px;background:var(--bg3);border-radius:3px;overflow:hidden;margin-bottom:5px}
+  .progress-fill{height:100%;background:var(--red);border-radius:3px;transition:width 0.4s ease}
+  .progress-label{font-size:11px;color:var(--text3)}
+  .rating-badge{font-size:11px;font-weight:600;padding:4px 10px;border-radius:20px;letter-spacing:0.5px;text-transform:uppercase}
+  .rating-beast{background:var(--red-bg);color:#f87171;border:0.5px solid var(--red-border)}
+  .rating-solid{background:rgba(234,179,8,0.1);color:#eab308;border:0.5px solid rgba(234,179,8,0.3)}
+  .rating-weak{background:var(--bg3);color:var(--text2);border:0.5px solid var(--border)}
+
+  /* SOPs */
+  .sop-section{margin-bottom:1rem}
+  .section-label{font-size:12px;font-weight:500;letter-spacing:1.5px;color:var(--text3);text-transform:uppercase;margin-bottom:8px}
+  .sop-items{display:flex;gap:8px;flex-wrap:wrap}
+  .sop-chip{display:flex;align-items:center;gap:7px;padding:8px 14px;border-radius:var(--radius);border:0.5px solid var(--border);cursor:pointer;background:var(--bg2);font-size:14px;color:var(--text2);transition:all 0.2s;user-select:none}
+  .sop-chip:hover{border-color:var(--border2)}
+  .sop-chip.done{border-color:var(--red-border);background:var(--red-bg);color:#f87171}
+
+  /* PHASES */
+  .phase-block{background:var(--bg2);border:0.5px solid var(--border);border-radius:var(--radius-lg);margin-bottom:10px;overflow:hidden;transition:border-color 0.2s}
+  .phase-block.open{border-color:var(--red-border)}
+  .phase-head{display:flex;align-items:center;gap:10px;padding:12px 16px;cursor:pointer;transition:background 0.15s}
+  .phase-head:hover{background:var(--bg3)}
+  .ph-num{width:30px;height:30px;border-radius:7px;background:var(--bg3);display:flex;align-items:center;justify-content:center;font-family:'Bebas Neue',sans-serif;font-size:18px;color:var(--red);flex-shrink:0}
+  .ph-title{flex:1;font-size:15px;font-weight:500;color:var(--text)}
+  .ph-time{font-size:13px;color:var(--text3)}
+  .ph-check{font-size:13px;color:var(--text2);margin-right:4px}
+  .ph-arrow{font-size:16px;color:var(--text3);transition:transform 0.25s}
+  .phase-block.open .ph-arrow{transform:rotate(180deg);color:var(--red)}
+  .phase-tasks{display:none;padding:0 16px 14px;border-top:0.5px solid var(--border)}
+  .phase-block.open .phase-tasks{display:block}
+
+  /* TASKS */
+  .task-row{display:flex;align-items:flex-start;gap:10px;padding:8px 0;border-bottom:0.5px solid var(--border)}
+  .task-row:last-of-type{border-bottom:none}
+  .task-cb{width:18px;height:18px;border-radius:4px;border:0.5px solid var(--border2);cursor:pointer;flex-shrink:0;margin-top:2px;background:var(--bg3);display:flex;align-items:center;justify-content:center;transition:all 0.2s}
+  .task-cb:hover{border-color:var(--red)}
+  .task-cb.done{background:var(--red);border-color:var(--red)}
+  .task-cb.done::after{content:'';display:block;width:5px;height:9px;border:2px solid #fff;border-top:none;border-left:none;transform:rotate(45deg) translate(-1px,-1px)}
+  .task-text-wrap{flex:1}
+  .task-text{font-size:14px;color:var(--text);line-height:1.55;transition:color 0.2s}
+  .task-text.done{text-decoration:line-through;color:var(--text3)}
+  .task-del{font-size:15px;color:var(--text3);cursor:pointer;padding:2px 4px;opacity:0.5;transition:opacity 0.2s}
+  .task-del:hover{opacity:1;color:#f87171}
+  .add-task-row{display:flex;gap:6px;margin-top:10px}
+  .add-task-row input{flex:1;font-size:14px;padding:7px 10px;border:0.5px solid var(--border);border-radius:8px;background:var(--bg3);color:var(--text);outline:none;font-family:'DM Sans',sans-serif}
+  .add-task-row input:focus{border-color:var(--red-border)}
+  .add-task-row button{font-size:14px;padding:7px 12px;border-radius:8px;background:var(--bg3);border:0.5px solid var(--border);color:var(--text);cursor:pointer;transition:all 0.15s}
+  .add-task-row button:hover{background:var(--red);border-color:var(--red);color:#fff}
+
+  /* NOTES */
+  .notes-wrap{margin-top:1.25rem}
+  .notes-wrap textarea{width:100%;font-size:14px;padding:12px;border:0.5px solid var(--border);border-radius:var(--radius-lg);background:var(--bg2);color:var(--text);resize:vertical;min-height:90px;font-family:'DM Sans',sans-serif;outline:none;transition:border-color 0.2s}
+  .notes-wrap textarea:focus{border-color:var(--red-border)}
+  .notes-wrap textarea::placeholder{color:var(--text3)}
+
+  /* CALENDAR */
+  .cal-month-nav{display:flex;align-items:center;gap:10px;margin-bottom:12px}
+  .cal-month-nav span{font-size:15px;font-weight:500;color:var(--text);flex:1}
+  .cal-month-nav button{background:var(--bg2);border:0.5px solid var(--border);border-radius:var(--radius);padding:5px 12px;cursor:pointer;color:var(--text);transition:background 0.15s}
+  .cal-month-nav button:hover{background:var(--bg3)}
+  .cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:5px;margin-bottom:1rem}
+  .cal-head-cell{font-size:12px;color:var(--text3);text-align:center;padding:4px 0;font-weight:500}
+  .cal-cell{aspect-ratio:1;border-radius:var(--radius);border:0.5px solid var(--border);display:flex;flex-direction:column;align-items:center;justify-content:center;cursor:pointer;background:var(--bg2);font-size:14px;color:var(--text2);transition:all 0.15s;position:relative}
+  .cal-cell:hover{border-color:var(--border2);background:var(--bg3)}
+  .cal-cell.today{border-color:rgba(220,38,38,0.4);color:var(--text);font-weight:500}
+  .cal-cell.selected{background:var(--red-bg);border-color:var(--red-border)}
+  .cal-cell.beast-day{background:rgba(220,38,38,0.15);border-color:var(--red-border);color:#f87171}
+  .cal-cell.has-data{color:var(--text)}
+  .cal-cell.empty{opacity:0;pointer-events:none;border:none}
+  .cal-dot{width:4px;height:4px;border-radius:50%;background:var(--red);margin-top:2px;display:none}
+  .cal-cell.has-data .cal-dot,.cal-cell.beast-day .cal-dot{display:block}
+  .day-detail{background:var(--bg2);border:0.5px solid var(--border);border-radius:var(--radius-lg);padding:1.1rem 1.25rem}
+  .day-detail-title{font-size:16px;font-weight:500;color:var(--text);margin-bottom:10px}
+  .day-detail-stat{font-size:14px;color:var(--text2);margin-bottom:5px;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+  .day-detail-grid{display:grid;gap:10px;margin-top:10px}
+  .day-card{background:var(--bg3);border:0.5px solid var(--border);border-radius:12px;padding:10px}
+  .day-card h4{font-size:14px;font-weight:600;color:var(--text);margin-bottom:6px;text-transform:uppercase;letter-spacing:1px}
+  .day-task-list{display:grid;gap:6px}
+  .day-task-item{display:flex;align-items:flex-start;gap:8px;font-size:14px;line-height:1.45;color:var(--text)}
+  .day-task-item.done .day-task-label{color:var(--text3);text-decoration:line-through}
+  .day-task-bullet{width:8px;height:8px;border-radius:999px;background:var(--red);margin-top:6px;flex-shrink:0}
+  .day-detail-notes{font-size:14px;color:var(--text2);margin-top:10px;padding-top:10px;border-top:0.5px solid var(--border);font-style:italic;line-height:1.55}
+
+  /* EDIT */
+  .edit-section{background:var(--bg2);border:0.5px solid var(--border);border-radius:var(--radius-lg);padding:1.25rem;margin-bottom:1rem}
+  .edit-phase-header{display:flex;align-items:center;gap:8px;margin-bottom:8px}
+  .ep-num{background:var(--bg3);border-radius:5px;padding:2px 8px;font-size:12px;font-weight:500;color:var(--red)}
+  .ep-name-input{flex:1;font-size:14px;font-weight:500;background:transparent;border:none;border-bottom:0.5px solid var(--border);color:var(--text);outline:none;padding:2px 4px;font-family:'DM Sans',sans-serif}
+  .ep-name-input:focus{border-bottom-color:var(--red)}
+  .ep-time-input{width:100px;font-size:12px;background:transparent;border:none;border-bottom:0.5px solid var(--border);color:var(--text2);outline:none;text-align:right;font-family:'DM Sans',sans-serif}
+  .ep-time-input:focus{border-bottom-color:var(--red)}
+  .edit-task-row{display:flex;align-items:center;gap:8px;margin-bottom:5px;background:var(--bg3);border-radius:7px;padding:6px 10px}
+  .edit-task-row input{flex:1;font-size:14px;background:transparent;border:none;color:var(--text);outline:none;font-family:'DM Sans',sans-serif}
+  .edit-task-row .del-btn{cursor:pointer;color:var(--text3);font-size:14px;opacity:0.5;transition:opacity 0.15s}
+  .edit-task-row .del-btn:hover{opacity:1;color:#f87171}
+  .save-btn{background:var(--red);color:#fff;border:none;border-radius:var(--radius);padding:8px 20px;font-size:14px;font-weight:500;cursor:pointer;font-family:'DM Sans',sans-serif;transition:background 0.15s}
+  .save-btn:hover{background:var(--red2)}
+  .reset-btn{background:transparent;color:var(--text2);border:0.5px solid var(--border);border-radius:var(--radius);padding:8px 16px;font-size:14px;cursor:pointer;font-family:'DM Sans',sans-serif;margin-left:8px;transition:all 0.15s}
+  .reset-btn:hover{border-color:var(--border2);color:var(--text)}
+  .add-edit-row{display:flex;gap:6px;margin-top:8px}
+  .add-edit-row input{flex:1;font-size:13px;padding:6px 10px;border:0.5px solid var(--border);border-radius:7px;background:var(--bg3);color:var(--text);outline:none;font-family:'DM Sans',sans-serif}
+  .add-edit-row input:focus{border-color:var(--red-border)}
+  .add-edit-row button{font-size:12px;padding:5px 12px;border-radius:7px;background:var(--bg3);border:0.5px solid var(--border);color:var(--text2);cursor:pointer;transition:all 0.15s}
+  .add-edit-row button:hover{background:var(--red);border-color:var(--red);color:#fff}
+
+  /* SUCCESS TOAST */
+  .toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(80px);background:var(--bg3);border:0.5px solid var(--red-border);border-radius:20px;padding:8px 20px;font-size:13px;color:#f87171;opacity:0;transition:all 0.3s;z-index:999;pointer-events:none}
+  .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+
+  @media (max-width: 900px){
+    .app{padding-inline:0.85rem}
+    .phase-head{flex-wrap:wrap}
+    .ph-time,.ph-check{width:100%;text-align:right}
+  }
+  @media (max-width: 680px){
+    .topbar,.date-nav,.cal-month-nav{display:flex;flex-direction:column;align-items:stretch}
+    .streak-pill{justify-content:center}
+    .tabs{gap:4px}
+    .tab{flex-basis:100%}
+    .score-bar{padding:1rem}
+    .cal-grid{gap:4px}
+    .cal-cell{min-height:42px;font-size:12px}
+    .day-detail{padding:1rem}
+  }
+  @media (max-width: 480px){
+    .sop-items{display:grid;grid-template-columns:1fr}
+    .sop-chip{width:100%}
+    .task-row{gap:8px}
+    .task-text{font-size:12px}
+  }
+</style>
+</head>
+<body>
+<div class="app">
+  <div class="topbar">
+    <div class="logo"><span>⚔</span> Beast Tracker</div>
+    <div class="streak-pill"><i class="ti ti-flame"></i> <span id="streakNum">0</span> day streak</div>
+  </div>
+
+  <div class="tabs">
+    <button class="tab active" onclick="showTab('today',this)">Today</button>
+    <button class="tab" onclick="showTab('calendar',this)">Calendar</button>
+    <button class="tab" onclick="showTab('edit',this)">Edit Schedule</button>
+  </div>
+
+  <!-- TODAY TAB -->
+  <div id="tab-today" class="section active">
+    <div class="date-nav">
+      <button onclick="changeDay(-1)"><i class="ti ti-chevron-left"></i></button>
+      <div class="date-label" id="dateLabelToday"></div>
+      <button class="today-btn" onclick="goToday()">Today</button>
+      <button onclick="changeDay(1)"><i class="ti ti-chevron-right"></i></button>
+    </div>
+
+    <div class="score-bar">
+      <div class="score-num" id="scoreNum">0 <sub>/ 0</sub></div>
+      <div class="progress-wrap">
+        <div class="progress-track"><div class="progress-fill" id="progFill" style="width:0%"></div></div>
+        <div class="progress-label" id="progLabel">Start checking off tasks</div>
+      </div>
+      <div class="rating-badge rating-weak" id="ratingBadge">Not started</div>
+    </div>
+
+    <div class="sop-section">
+      <div class="section-label">Daily SOPs</div>
+      <div class="sop-items" id="sopItems"></div>
+    </div>
+
+    <div id="phasesContainer"></div>
+
+    <div class="notes-wrap">
+      <div class="section-label" style="margin-bottom:8px">Daily Journal</div>
+      <textarea id="notesArea" placeholder="Aaj ka reflection... kya achieve kiya, kya miss hua..." onchange="saveNotes()"></textarea>
+    </div>
+  </div>
+
+  <!-- CALENDAR TAB -->
+  <div id="tab-calendar" class="section">
+    <div class="cal-month-nav">
+      <button onclick="calNav(-1)"><i class="ti ti-chevron-left"></i></button>
+      <span id="calMonthLabel"></span>
+      <button onclick="calNav(1)"><i class="ti ti-chevron-right"></i></button>
+    </div>
+    <div class="cal-grid" id="calGrid"></div>
+    <div class="day-detail" id="dayDetail" style="display:none"></div>
+  </div>
+
+  <!-- EDIT TAB -->
+  <div id="tab-edit" class="section">
+    <div id="editPhasesContainer"></div>
+    <div style="margin-top:4px">
+      <button class="save-btn" onclick="saveSchedule()"><i class="ti ti-device-floppy"></i> Save Schedule</button>
+      <button class="reset-btn" onclick="resetDefault()">Reset to Default</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+const DEFAULT_SCHEDULE = [
+  {name:"System Shock",time:"05:00–08:30",tasks:[
+    {t:"05:00 — Alarm bajte hi uthna, 1 second nahi sochna",done:false},
+    {t:"05:10 — Thanda paani muh par, 2 gilaas paani peena",done:false},
+    {t:"05:30–07:00 — 5KM run ya 100 pushups+squats circuit",done:false},
+    {t:"07:30–08:30 — Thande paani se naha, taiyaar ho",done:false}
+  ]},
+  {name:"8th House Grind",time:"09:00–01:30",tasks:[
+    {t:"09:00 — Library mein entry, phone airplane mode",done:false},
+    {t:"09:00–12:30 — LeetCode Medium/Hard: Graphs, DP, Trees",done:false},
+    {t:"12:30–01:30 — OS, DBMS, Computer Networks revision",done:false}
+  ]},
+  {name:"Pitta Control",time:"01:30–03:00",tasks:[
+    {t:"01:30 — Saada khana + ek gilaas chaach",done:false},
+    {t:"02:00–03:00 — 30 min brain cache clear (eyes closed)",done:false}
+  ]},
+  {name:"Hunt & Architecture",time:"03:00–06:30",tasks:[
+    {t:"03:00–05:00 — System Design: HLD/LLD study",done:false},
+    {t:"05:00–06:30 — Apply to 25 companies (Naukri, Instahyre, Wellfound)",done:false}
+  ]},
+  {name:"The Provider",time:"07:00–09:30",tasks:[
+    {t:"07:00–08:30 — Papa ke paas baithna, confidence dena",done:false},
+    {t:"08:30–09:30 — Halka dinner + 15 min walk",done:false}
+  ]},
+  {name:"Shutdown",time:"09:30–10:00",tasks:[
+    {t:"09:30 — Phone & laptop doosre kamre mein",done:false},
+    {t:"09:40 — Journal mein likhna: aaj 10LPA ke liye kya kiya",done:false},
+    {t:"10:00 — Aankhein band, neend",done:false}
+  ]}
+];
+
+const SOPS = ["Zero inbox refreshing","Zero relapse — stay clean","No complaining — warrior mode"];
+
+let viewDate = todayKey();
+let calYear, calMonth, selectedCalDate = null;
+let editSchedule = [];
+
+function todayKey(){
+  const d = new Date();
+  return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');
+}
+
+function getSchedule(){
+  try{const s=localStorage.getItem('bf_schedule');return s?JSON.parse(s):JSON.parse(JSON.stringify(DEFAULT_SCHEDULE));}
+  catch(e){return JSON.parse(JSON.stringify(DEFAULT_SCHEDULE));}
+}
+
+function getData(key){
+  try{const d=localStorage.getItem('bf_day_'+key);return d?JSON.parse(d):null;}
+  catch(e){return null;}
+}
+
+function saveData(key,data){
+  try{localStorage.setItem('bf_day_'+key,JSON.stringify(data));}catch(e){}
+}
+
+function getOrCreate(key){
+  let d=getData(key);
+  if(!d){
+    const sched=getSchedule();
+    d={phases:JSON.parse(JSON.stringify(sched)),sops:[false,false,false],notes:''};
+  }
+  return d;
+}
+
+function calcScore(data){
+  let done=0,total=0;
+  data.phases.forEach(p=>p.tasks.forEach(t=>{total++;if(t.done)done++;}));
+  data.sops.forEach(s=>{total++;if(s)done++;});
+  return{done,total};
+}
+
+function getRating(pct){
+  if(pct>=85)return{cls:'rating-beast',label:'Beast Mode'};
+  if(pct>=60)return{cls:'rating-solid',label:'Solid Day'};
+  if(pct>0)return{cls:'rating-weak',label:'Work More'};
+  return{cls:'rating-weak',label:'Not started'};
+}
+
+function calcStreak(){
+  let streak=0;
+  const d=new Date();
+  while(true){
+    const k=d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');
+    const data=getData(k);
+    if(!data){if(k===todayKey()){d.setDate(d.getDate()-1);continue;}break;}
+    const{done,total}=calcScore(data);
+    if(total===0||done/total<0.6)break;
+    streak++;
+    d.setDate(d.getDate()-1);
+  }
+  return streak;
+}
+
+function showToast(msg){
+  const t=document.getElementById('toast');
+  t.textContent=msg;t.classList.add('show');
+  setTimeout(()=>t.classList.remove('show'),2500);
+}
+
+function renderToday(){
+  const data=getOrCreate(viewDate);
+  const{done,total}=calcScore(data);
+  const pct=total>0?Math.round(done/total*100):0;
+  const rating=getRating(pct);
+
+  document.getElementById('scoreNum').innerHTML=done+' <sub>/ '+total+'</sub>';
+  document.getElementById('progFill').style.width=pct+'%';
+  document.getElementById('progLabel').textContent=pct+'% complete — '+done+' tasks done';
+  const rb=document.getElementById('ratingBadge');
+  rb.className='rating-badge '+rating.cls;
+  rb.textContent=rating.label;
+
+  const d=new Date(viewDate+'T00:00:00');
+  document.getElementById('dateLabelToday').textContent=d.toLocaleDateString('en-IN',{weekday:'long',day:'numeric',month:'long',year:'numeric'});
+
+  const sopEl=document.getElementById('sopItems');
+  sopEl.innerHTML='';
+  SOPS.forEach((s,i)=>{
+    const ch=document.createElement('div');
+    ch.className='sop-chip'+(data.sops[i]?' done':'');
+    ch.innerHTML=(data.sops[i]?'<i class="ti ti-circle-check"></i>':'<i class="ti ti-circle"></i>')+' '+s;
+    ch.onclick=()=>{data.sops[i]=!data.sops[i];saveData(viewDate,data);renderToday();renderStreak();};
+    sopEl.appendChild(ch);
+  });
+
+  const pc=document.getElementById('phasesContainer');
+  pc.innerHTML='';
+  data.phases.forEach((ph,pi)=>{
+    const pDone=ph.tasks.filter(t=>t.done).length;
+    const div=document.createElement('div');
+    div.className='phase-block'+(pi===0?' open':'');
+    div.innerHTML=`<div class="phase-head" onclick="togglePhase(this.parentElement)">
+      <div class="ph-num">${pi+1}</div>
+      <div class="ph-title">${ph.name}</div>
+      <div class="ph-time">${ph.time}</div>
+      <div class="ph-check">${pDone}/${ph.tasks.length}</div>
+      <i class="ti ti-chevron-down ph-arrow"></i>
+    </div>
+    <div class="phase-tasks">
+      ${ph.tasks.map((t,ti)=>`<div class="task-row">
+        <div class="task-cb${t.done?' done':''}" onclick="toggleTask(${pi},${ti})"></div>
+        <div class="task-text-wrap">
+          <div class="task-text${t.done?' done':''}">${t.t}</div>
+        </div>
+        <span class="task-del" onclick="delTask(${pi},${ti})"><i class="ti ti-trash"></i></span>
+      </div>`).join('')}
+      <div class="add-task-row">
+        <input type="text" placeholder="Add task to this phase..." id="addInp${pi}" onkeydown="if(event.key==='Enter')addTask(${pi})"/>
+        <button onclick="addTask(${pi})"><i class="ti ti-plus"></i></button>
+      </div>
+    </div>`;
+    pc.appendChild(div);
+  });
+
+  document.getElementById('notesArea').value=data.notes||'';
+  document.getElementById('streakNum').textContent=calcStreak();
+}
+
+function togglePhase(el){el.classList.toggle('open');}
+
+function toggleTask(pi,ti){
+  const data=getOrCreate(viewDate);
+  data.phases[pi].tasks[ti].done=!data.phases[pi].tasks[ti].done;
+  saveData(viewDate,data);renderToday();
+}
+
+function delTask(pi,ti){
+  const data=getOrCreate(viewDate);
+  data.phases[pi].tasks.splice(ti,1);
+  saveData(viewDate,data);renderToday();
+}
+
+function addTask(pi){
+  const inp=document.getElementById('addInp'+pi);
+  const val=inp.value.trim();
+  if(!val)return;
+  const data=getOrCreate(viewDate);
+  data.phases[pi].tasks.push({t:val,done:false});
+  saveData(viewDate,data);inp.value='';renderToday();
+}
+
+function saveNotes(){
+  const data=getOrCreate(viewDate);
+  data.notes=document.getElementById('notesArea').value;
+  saveData(viewDate,data);
+}
+
+function changeDay(n){
+  const d=new Date(viewDate+'T00:00:00');
+  d.setDate(d.getDate()+n);
+  viewDate=d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');
+  renderToday();
+}
+
+function goToday(){viewDate=todayKey();renderToday();}
+
+function renderStreak(){document.getElementById('streakNum').textContent=calcStreak();}
+
+function showTab(name,btn){
+  document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));
+  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+  document.getElementById('tab-'+name).classList.add('active');
+  if(btn)btn.classList.add('active');
+  if(name==='calendar')renderCal();
+  if(name==='edit')renderEdit();
+}
+
+function initCal(){const n=new Date();calYear=n.getFullYear();calMonth=n.getMonth();}
+
+function calNav(n){
+  calMonth+=n;
+  if(calMonth>11){calMonth=0;calYear++;}
+  if(calMonth<0){calMonth=11;calYear--;}
+  renderCal();
+}
+
+function renderCal(){
+  const months=['January','February','March','April','May','June','July','August','September','October','November','December'];
+  document.getElementById('calMonthLabel').textContent=months[calMonth]+' '+calYear;
+  const grid=document.getElementById('calGrid');
+  grid.innerHTML='';
+  ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'].forEach(d=>{
+    const h=document.createElement('div');h.className='cal-head-cell';h.textContent=d;grid.appendChild(h);
+  });
+  const first=new Date(calYear,calMonth,1).getDay();
+  const days=new Date(calYear,calMonth+1,0).getDate();
+  const today=todayKey();
+  for(let i=0;i<first;i++){const e=document.createElement('div');e.className='cal-cell empty';grid.appendChild(e);}
+  for(let day=1;day<=days;day++){
+    const key=calYear+'-'+String(calMonth+1).padStart(2,'0')+'-'+String(day).padStart(2,'0');
+    const data=getData(key);
+    const cell=document.createElement('div');
+    let cls='cal-cell';
+    if(key===today)cls+=' today';
+    if(key===selectedCalDate)cls+=' selected';
+    if(data){
+      const{done,total}=calcScore(data);
+      const pct=total>0?done/total:0;
+      cls+=pct>=0.85?' beast-day':' has-data';
+    }
+    cell.className=cls;
+    cell.innerHTML='<span>'+day+'</span><div class="cal-dot"></div>';
+    cell.onclick=()=>showDayDetail(key);
+    grid.appendChild(cell);
+  }
+}
+
+function showDayDetail(key){
+  selectedCalDate=key;
+  renderCal();
+  const data=getOrCreate(key);
+  const detail=document.getElementById('dayDetail');
+  detail.style.display='block';
+  const d=new Date(key+'T00:00:00');
+  const dayLabel=d.toLocaleDateString('en-IN',{weekday:'long',day:'numeric',month:'long',year:'numeric'});
+  const{done,total}=calcScore(data);
+  const pct=total>0?Math.round(done/total*100):0;
+  const rating=getRating(pct);
+  const sopDone=data.sops.filter(Boolean).length;
+  const tasksHtml=data.phases.map((phase,pi)=>`<div class="day-card"><h4>${phase.name} · ${phase.time}</h4><div class="day-task-list">${phase.tasks.map((task,ti)=>`<div class="day-task-item${task.done?' done':''}"><span class="day-task-bullet"></span><span class="day-task-label">${task.t}</span></div>`).join('')}</div></div>`).join('');
+  detail.innerHTML=`<div class="day-detail-title">${dayLabel}</div>
+    <div class="day-detail-stat"><i class="ti ti-checklist" style="font-size:15px;color:var(--red)"></i> Tasks: ${done}/${total} (${pct}%) <span class="rating-badge ${rating.cls}" style="font-size:11px;padding:3px 9px">${rating.label}</span></div>
+    <div class="day-detail-stat"><i class="ti ti-shield-check" style="font-size:15px;color:var(--red)"></i> SOPs completed: ${sopDone}/3</div>
+    <div class="day-detail-grid">${tasksHtml}</div>
+    ${data.notes?`<div class="day-detail-notes"><i class="ti ti-notebook" style="margin-right:5px"></i>"${data.notes}"</div>`:''}`;
+}
+
+function renderEdit(){
+  const sched=getSchedule();
+  editSchedule=JSON.parse(JSON.stringify(sched));
+  const c=document.getElementById('editPhasesContainer');
+  c.innerHTML='';
+  editSchedule.forEach((ph,pi)=>{
+    const wrap=document.createElement('div');
+    wrap.className='edit-section';
+    const header=document.createElement('div');
+    header.className='edit-phase-header';
+    header.innerHTML=`<span class="ep-num">${pi+1}</span>
+      <input class="ep-name-input" type="text" value="${ph.name}" id="pname${pi}" placeholder="Phase name"/>
+      <input class="ep-time-input" type="text" value="${ph.time}" id="ptime${pi}" placeholder="time"/>`;
+    wrap.appendChild(header);
+
+    const taskWrap=document.createElement('div');
+    ph.tasks.forEach((t,ti)=>{
+      const row=document.createElement('div');
+      row.className='edit-task-row';
+      row.innerHTML=`<i class="ti ti-grip-vertical" style="color:var(--text3);font-size:14px;flex-shrink:0"></i>
+        <input type="text" value="${t.t}" id="ptask${pi}_${ti}"/>
+        <span class="del-btn" onclick="removeEditTask(${pi},${ti})"><i class="ti ti-x"></i></span>`;
+      taskWrap.appendChild(row);
+    });
+    wrap.appendChild(taskWrap);
+
+    const addRow=document.createElement('div');
+    addRow.className='add-edit-row';
+    addRow.innerHTML=`<input type="text" placeholder="Add task to this phase..." id="editAddInp${pi}" onkeydown="if(event.key==='Enter')addEditTask(${pi})"/>
+      <button onclick="addEditTask(${pi})"><i class="ti ti-plus"></i></button>`;
+    wrap.appendChild(addRow);
+    c.appendChild(wrap);
+  });
+}
+
+function removeEditTask(pi,ti){
+  editSchedule[pi].tasks.splice(ti,1);renderEdit();
+}
+
+function addEditTask(pi){
+  const inp=document.getElementById('editAddInp'+pi);
+  const val=inp.value.trim();
+  if(!val)return;
+  editSchedule[pi].tasks.push({t:val,done:false});
+  renderEdit();
+}
+
+function saveSchedule(){
+  editSchedule.forEach((ph,pi)=>{
+    const nameEl=document.getElementById('pname'+pi);
+    const timeEl=document.getElementById('ptime'+pi);
+    if(nameEl)ph.name=nameEl.value;
+    if(timeEl)ph.time=timeEl.value;
+    ph.tasks.forEach((t,ti)=>{
+      const el=document.getElementById('ptask'+pi+'_'+ti);
+      if(el)t.t=el.value;
+    });
+  });
+  try{localStorage.setItem('bf_schedule',JSON.stringify(editSchedule));}catch(e){}
+  showToast('Schedule saved!');
+}
+
+function resetDefault(){
+  if(confirm('Reset schedule to default Gand Faad Routine?')){
+    try{localStorage.removeItem('bf_schedule');}catch(e){}
+    renderEdit();
+    showToast('Reset to default!');
+  }
+}
+
+initCal();
+renderToday();
+</script>
+</body>
+</html>
