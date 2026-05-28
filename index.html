@@ -3,81 +3,96 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
-<meta name="theme-color" content="#040406"/>
-<title>Beast Tracker — Gand Faad Routine</title>
+<meta name="theme-color" content="#03050a"/>
+<title>Aura — Precision Tracker</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
-<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet"/>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.44.0/tabler-icons.min.css"/>
 <style>
   * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
   :root {
-    --bg: #040406;
-    --card: #0c0d14;
-    --card-surface: #141622;
-    --border: rgba(255, 51, 58, 0.15);
-    --border-bright: rgba(255, 51, 58, 0.4);
-    --text: #f5f6fa;
-    --text-muted: #7e8494;
-    --red: #ff333a;
-    --red-glow: rgba(255, 51, 58, 0.12);
-    --shadow: 0 8px 32px rgba(0,0,0,0.5);
-    --radius: 12px;
+    --bg: #03050a;
+    --card: #0a0e17;
+    --card-surface: #121824;
+    --border: rgba(0, 255, 196, 0.06);
+    --border-bright: rgba(0, 255, 196, 0.25);
+    --text: #f0f3f8;
+    --text-muted: #64738d;
+    --emerald: #00ffc4;
+    --emerald-glow: rgba(0, 255, 196, 0.05);
+    --gold: #e5b869;
+    --gold-glow: rgba(229, 184, 105, 0.08);
+    --shadow: 0 12px 40px rgba(0,0,0,0.6);
+    --radius: 16px;
+    --radius-sm: 8px;
   }
   
   body {
     font-family: 'Plus Jakarta Sans', sans-serif;
     background-color: var(--bg);
-    background-image: radial-gradient(circle at 50% 0%, rgba(255,51,58,0.12) 0%, transparent 50%);
+    background-image: 
+      radial-gradient(circle at 50% 0%, rgba(0, 255, 196, 0.05) 0%, transparent 60%),
+      radial-gradient(circle at 0% 100%, rgba(229, 184, 105, 0.02) 0%, transparent 40%);
     color: var(--text);
     min-height: 100dvh;
-    padding-bottom: 90px;
+    padding-bottom: 100px;
     font-size: 14px;
-    line-height: 1.5;
+    line-height: 1.6;
+    letter-spacing: -0.1px;
   }
 
-  .app { width: 100%; max-width: 480px; margin: 0 auto; padding: 16px 12px; }
+  .app { width: 100%; max-width: 480px; margin: 0 auto; padding: 20px 16px; }
 
-  /* LOGO HERO */
+  /* MASTER HUD HERO */
   .hero-card {
-    background: linear-gradient(180deg, var(--card) 0%, #08090e 100%);
+    background: linear-gradient(145deg, var(--card) 0%, #060910 100%);
     border: 1px solid var(--border);
     border-radius: var(--radius);
-    padding: 16px;
-    margin-bottom: 16px;
+    padding: 20px;
+    margin-bottom: 20px;
     box-shadow: var(--shadow);
+    position: relative;
+    overflow: hidden;
+  }
+  .hero-card::before {
+    content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 1px;
+    background: linear-gradient(90deg, transparent, var(--border-bright), transparent);
   }
   .logo-wrap { display: flex; align-items: center; justify-content: space-between; }
-  .logo { font-family: 'Bebas Neue', sans-serif; font-size: 2rem; letter-spacing: 1.5px; line-height: 1; }
-  .logo span { color: var(--red); text-shadow: 0 0 10px rgba(255,51,58,0.5); }
+  .logo { font-family: 'Space Grotesk', sans-serif; font-size: 1.35rem; font-weight: 600; letter-spacing: -0.5px; color: #fff; display: flex; align-items: center; gap: 8px; }
+  .logo span { color: var(--emerald); text-shadow: 0 0 15px rgba(0, 255, 196, 0.6); font-weight: 400; }
   .streak-pill {
-    background: var(--red-glow);
-    border: 1px solid var(--border-bright);
-    border-radius: 20px;
-    padding: 6px 12px;
-    font-size: 12px;
-    font-weight: 700;
-    color: #ff8084;
+    background: var(--gold-glow);
+    border: 1px solid rgba(229, 184, 105, 0.2);
+    border-radius: 30px;
+    padding: 6px 14px;
+    font-size: 11px;
+    font-weight: 600;
+    font-family: 'Space Grotesk', sans-serif;
+    color: var(--gold);
     display: flex;
     align-items: center;
-    gap: 4px;
+    gap: 6px;
+    letter-spacing: 0.5px;
   }
 
-  /* STICKY BOTTOM TABS MOTO-LAYOUT */
+  /* UNIFIED FLOATING NAVIGATION DOCK */
   .tabs {
     position: fixed;
-    bottom: 0;
+    bottom: 20px;
     left: 50%;
     transform: translateX(-50%);
-    width: 100%;
-    max-width: 480px;
-    background: rgba(12, 13, 20, 0.95);
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
-    border-top: 1px solid var(--border);
+    width: calc(100% - 32px);
+    max-width: 448px;
+    background: rgba(10, 14, 23, 0.85);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255,255,255,0.05);
+    border-radius: 24px;
     display: flex;
-    padding: 8px 12px calc(8px + env(safe-area-inset-bottom));
+    padding: 8px;
     z-index: 100;
-    box-shadow: 0 -10px 30px rgba(0,0,0,0.5);
+    box-shadow: 0 20px 50px rgba(0,0,0,0.7);
   }
   .tab {
     flex: 1;
@@ -91,149 +106,166 @@
     cursor: pointer;
     font-family: inherit;
     font-size: 11px;
-    font-weight: 600;
-    transition: color 0.2s, transform 0.1s;
-    padding: 6px 0;
+    font-weight: 500;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    padding: 10px 0;
+    border-radius: 16px;
   }
-  .tab i { font-size: 20px; transition: transform 0.2s; }
-  .tab.active { color: var(--red); }
-  .tab.active i { transform: translateY(-2px); }
+  .tab i { font-size: 19px; transition: transform 0.3s; color: var(--text-muted); }
+  .tab.active { color: #fff; background: rgba(255,255,255,0.04); }
+  .tab.active i { color: var(--emerald); transform: translateY(-1px); }
 
-  .section { display: none; animation: fadeIn 0.25s ease-out; }
+  .section { display: none; animation: quantumFade 0.4s cubic-bezier(0.16, 1, 0.3, 1); }
   .section.active { display: block; }
-  @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+  @keyframes quantumFade { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
 
-  /* DATE NAVIGATION ENGINE */
-  .date-nav { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-bottom: 16px; }
+  /* PRECISION CHRONO NAV */
+  .date-nav { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-bottom: 20px; }
   .date-nav button {
+    background: var(--card);
+    border: 1px solid rgba(255,255,255,0.03);
+    border-radius: var(--radius-sm);
+    width: 40px; height: 40px;
+    display: flex; align-items: center; justify-content: center;
+    color: var(--text-muted); font-size: 16px; cursor: pointer; transition: all 0.2s;
+  }
+  .date-nav button:active { background: var(--card-surface); color: var(--text); }
+  .date-label { font-family: 'Space Grotesk', sans-serif; font-size: 15px; font-weight: 500; text-align: center; flex: 1; color: var(--text); }
+  .today-btn { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 0 16px; height: 40px; color: var(--emerald); font-size: 11px; font-weight: 600; font-family: 'Space Grotesk', sans-serif; letter-spacing: 0.5px; cursor: pointer; }
+
+  /* ANALYTICAL METRICS BAR */
+  .score-bar {
     background: var(--card);
     border: 1px solid var(--border);
     border-radius: var(--radius);
-    width: 44px; height: 44px;
-    display: flex; align-items: center; justify-content: center;
-    color: var(--text); font-size: 18px; cursor: pointer;
-  }
-  .date-label { font-size: 14px; font-weight: 700; text-align: center; flex: 1; text-transform: uppercase; letter-spacing: 0.5px; }
-  .today-btn { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); padding: 0 16px; height: 44px; color: var(--text); font-size: 12px; font-weight: 600; cursor: pointer; }
-
-  /* HUD PERFORMANCE METRICS */
-  .score-bar {
-    background: #090a10;
-    border-left: 4px solid var(--red);
-    border-radius: var(--radius);
-    padding: 16px; margin-bottom: 20px;
-    display: flex; align-items: center; gap: 16px;
+    padding: 20px; margin-bottom: 24px;
+    display: flex; align-items: center; gap: 20px;
     box-shadow: var(--shadow);
   }
-  .score-num { font-family: 'Bebas Neue', sans-serif; font-size: 2.5rem; line-height: 1; color: var(--text); }
-  .score-num sub { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 12px; color: var(--text-muted); font-weight: 400; }
+  .score-num { font-family: 'Space Grotesk', sans-serif; font-size: 2rem; font-weight: 400; line-height: 1; color: #fff; }
+  .score-num sub { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 12px; color: var(--text-muted); font-weight: 400; bottom: 0; }
   .progress-wrap { flex: 1; }
-  .progress-track { height: 6px; background: rgba(255,255,255,0.05); border-radius: 3px; overflow: hidden; margin-bottom: 6px; }
-  .progress-fill { height: 100%; background: var(--red); box-shadow: 0 0 8px var(--red); border-radius: 3px; transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1); }
-  .progress-label { font-size: 11px; color: var(--text-muted); font-weight: 500; }
-  .rating-badge { font-size: 10px; font-weight: 700; padding: 4px 8px; border-radius: 6px; text-transform: uppercase; letter-spacing: 0.5px; white-space: nowrap; }
-  .rating-beast { background: var(--red-glow); color: var(--red); border: 1px solid var(--border-bright); }
-  .rating-solid { background: rgba(234,179,8,0.1); color: #eab308; border: 1px solid rgba(234,179,8,0.3); }
-  .rating-weak { background: rgba(255,255,255,0.05); color: var(--text-muted); border: 1px solid rgba(255,255,255,0.08); }
+  .progress-track { height: 4px; background: rgba(255,255,255,0.03); border-radius: 2px; overflow: hidden; margin-bottom: 8px; }
+  .progress-fill { height: 100%; background: linear-gradient(90deg, #00cb9c, var(--emerald)); box-shadow: 0 0 12px rgba(0, 255, 196, 0.3); border-radius: 2px; transition: width 0.6s cubic-bezier(0.16, 1, 0.3, 1); }
+  .progress-label { font-size: 11px; color: var(--text-muted); font-weight: 400; }
+  
+  .rating-badge { font-family: 'Space Grotesk', sans-serif; font-size: 10px; font-weight: 500; padding: 5px 10px; border-radius: 20px; letter-spacing: 0.2px; white-space: nowrap; }
+  .rating-beast { background: var(--emerald-glow); color: var(--emerald); border: 1px solid rgba(0, 255, 196, 0.15); }
+  .rating-solid { background: var(--gold-glow); color: var(--gold); border: 1px solid rgba(229, 184, 105, 0.15); }
+  .rating-weak { background: rgba(255,255,255,0.02); color: var(--text-muted); border: 1px solid rgba(255,255,255,0.05); }
 
-  /* CORE CHIPS (SOPs) */
-  .sop-section { margin-bottom: 20px; }
-  .section-label { font-size: 11px; font-weight: 700; letter-spacing: 1.5px; color: var(--text-muted); text-transform: uppercase; margin-bottom: 10px; display: block; }
-  .sop-items { display: flex; flex-direction: column; gap: 8px; }
+  /* ARCHITECTURAL CORE CHIPS (SOPs) */
+  .sop-section { margin-bottom: 24px; }
+  .section-label { font-family: 'Space Grotesk', sans-serif; font-size: 11px; font-weight: 600; letter-spacing: 1px; color: var(--text-muted); text-transform: uppercase; margin-bottom: 12px; display: block; opacity: 0.8; }
+  .sop-items { display: grid; grid-template-columns: 1fr; gap: 8px; }
   .sop-chip {
-    display: flex; align-items: center; gap: 10px; padding: 12px 14px;
-    border-radius: var(--radius); border: 1px solid rgba(255,255,255,0.05);
-    background: var(--card); font-size: 13px; font-weight: 500; color: var(--text);
-    transition: all 0.2s; min-height: 44px;
+    display: flex; align-items: center; gap: 12px; padding: 14px 16px;
+    border-radius: var(--radius); border: 1px solid rgba(255,255,255,0.02);
+    background: var(--card); font-size: 13px; font-weight: 400; color: #cbd5e1;
+    transition: all 0.25s ease; min-height: 48px; cursor: pointer;
   }
-  .sop-chip.done { border-color: var(--border-bright); background: var(--red-glow); color: #ff8084; }
-  .sop-chip i { font-size: 16px; }
+  .sop-chip.done { border-color: rgba(0, 255, 196, 0.12); background: linear-gradient(145deg, var(--card) 0%, var(--emerald-glow) 100%); color: #fff; }
+  .sop-chip i { font-size: 18px; color: var(--text-muted); }
+  .sop-chip.done i { color: var(--emerald); }
 
-  /* COLLAPSIBLE ROUTINE ENGINE */
-  .phase-block { background: var(--card); border: 1px solid rgba(255,255,255,0.04); border-radius: var(--radius); margin-bottom: 12px; overflow: hidden; box-shadow: var(--shadow); }
-  .phase-block.open { border-color: var(--border); }
-  .phase-head { display: flex; align-items: center; gap: 12px; padding: 14px; cursor: pointer; }
-  .ph-num { width: 26px; height: 26px; border-radius: 6px; background: rgba(255,51,58,0.1); display: flex; align-items: center; justify-content: center; font-family: 'Bebas Neue', sans-serif; font-size: 15px; color: var(--red); flex-shrink: 0; }
+  /* EXECUTIVE ROUTINE INTERFACE */
+  .phase-block { background: var(--card); border: 1px solid rgba(255,255,255,0.02); border-radius: var(--radius); margin-bottom: 12px; overflow: hidden; transition: border 0.3s; }
+  .phase-block.open { border-color: rgba(255,255,255,0.05); box-shadow: var(--shadow); }
+  .phase-head { display: flex; align-items: center; gap: 14px; padding: 16px; cursor: pointer; }
+  .ph-num { width: 22px; height: 22px; border-radius: 6px; background: rgba(255,255,255,0.03); display: flex; align-items: center; justify-content: center; font-family: 'Space Grotesk', sans-serif; font-size: 11px; color: var(--text-muted); flex-shrink: 0; }
+  .phase-block.open .ph-num { background: var(--emerald-glow); color: var(--emerald); }
   .ph-info { flex: 1; min-width: 0; }
-  .ph-title { font-size: 14px; font-weight: 600; color: var(--text); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-  .ph-time { font-size: 11px; color: var(--text-muted); margin-top: 2px; }
-  .ph-meta { text-align: right; margin-right: 4px; }
-  .ph-check { font-size: 12px; font-weight: 700; color: var(--text); }
-  .ph-arrow { font-size: 14px; color: var(--text-muted); transition: transform 0.2s; }
-  .phase-block.open .ph-arrow { transform: rotate(180deg); color: var(--red); }
-  .phase-tasks { display: none; padding: 0 14px 14px; background: #090a10; border-top: 1px solid rgba(255,255,255,0.03); }
+  .ph-title { font-size: 14px; font-weight: 500; color: var(--text); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .ph-time { font-family: 'Space Grotesk', sans-serif; font-size: 11px; color: var(--text-muted); margin-top: 1px; }
+  .ph-meta { text-align: right; margin-right: 2px; }
+  .ph-check { font-family: 'Space Grotesk', sans-serif; font-size: 12px; font-weight: 500; color: var(--text-muted); }
+  .phase-block.open .ph-check { color: var(--text); }
+  .ph-arrow { font-size: 14px; color: var(--text-muted); transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1); }
+  .phase-block.open .ph-arrow { transform: rotate(180deg); color: var(--text); }
+  .phase-tasks { display: none; padding: 4px 16px 16px; background: rgba(0,0,0,0.15); border-top: 1px solid rgba(255,255,255,0.01); }
   .phase-block.open .phase-tasks { display: block; }
 
-  /* TOUCH FRIENDLY LISTS */
-  .task-row { display: flex; align-items: flex-start; gap: 12px; padding: 12px 0; border-bottom: 1px solid rgba(255,255,255,0.03); }
+  /* CLEAN INTERACTIVE EXECUTION ROWS */
+  .task-row { display: flex; align-items: flex-start; gap: 14px; padding: 12px 0; border-bottom: 1px solid rgba(255,255,255,0.02); }
   .task-row:last-of-type { border-bottom: none; }
-  .task-cb { width: 22px; height: 22px; border-radius: 6px; border: 1px solid rgba(255,255,255,0.15); cursor: pointer; flex-shrink: 0; background: var(--bg); display: flex; align-items: center; justify-content: center; transition: all 0.15s; }
-  .task-cb.done { background: var(--red); border-color: var(--red); box-shadow: 0 0 8px rgba(255,51,58,0.4); }
-  .task-cb.done::after { content: ''; display: block; width: 4px; height: 8px; border: 2px solid #fff; border-top: none; border-left: none; transform: rotate(45deg) translate(-1px,-1px); }
-  .task-text-wrap { flex: 1; min-width: 0; }
-  .task-text { font-size: 13px; line-height: 1.5; color: var(--text); overflow-wrap: break-word; }
+  .task-cb { width: 20px; height: 20px; border-radius: 6px; border: 1px solid rgba(255,255,255,0.12); cursor: pointer; flex-shrink: 0; background: transparent; display: flex; align-items: center; justify-content: center; transition: all 0.2s; margin-top: 1px; }
+  .task-cb.done { background: var(--emerald); border-color: var(--emerald); box-shadow: 0 0 10px rgba(0, 255, 196, 0.3); }
+  .task-cb.done::after { content: ''; display: block; width: 4px; height: 7px; border: 2px solid #03050a; border-top: none; border-left: none; transform: rotate(45deg) translate(-0.5px, -0.5px); }
+  .task-text-wrap { flex: 1; min-width: 0; cursor: pointer; }
+  .task-text { font-size: 13.5px; line-height: 1.5; color: #cbd5e1; overflow-wrap: break-word; transition: color 0.2s; }
   .task-text.done { text-decoration: line-through; color: var(--text-muted); }
-  .task-del { font-size: 16px; color: var(--text-muted); cursor: pointer; padding: 4px; margin-top: -4px; }
+  .task-del { font-size: 15px; color: rgba(255,255,255,0.15); cursor: pointer; padding: 2px 4px; transition: color 0.2s; }
+  .task-del:hover { color: #ef4444; }
 
-  /* AGGRESSIVE DYNAMIC ADD BUTTONS */
-  .add-task-row { display: flex; gap: 8px; margin-top: 12px; }
-  .add-task-row input, .add-edit-row input { flex: 1; font-size: 13px; padding: 10px 12px; border: 1px solid rgba(255,255,255,0.08); border-radius: var(--radius); background: var(--bg); color: var(--text); outline: none; font-family: inherit; }
-  .add-task-row input:focus, .add-edit-row input:focus { border-color: var(--border-bright); }
-  .add-task-row button, .add-edit-row button { background: var(--card-surface); border: 1px solid rgba(255,255,255,0.08); border-radius: var(--radius); width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; color: var(--text); cursor: pointer; }
+  /* INPUT GEOMETRY */
+  .add-task-row { display: flex; gap: 8px; margin-top: 14px; }
+  .add-task-row input, .add-edit-row input { flex: 1; font-size: 13px; padding: 11px 14px; border: 1px solid rgba(255,255,255,0.04); border-radius: var(--radius-sm); background: rgba(0,0,0,0.2); color: var(--text); outline: none; font-family: inherit; transition: border 0.2s; }
+  .add-task-row input:focus, .add-edit-row input:focus { border-color: rgba(255,255,255,0.15); }
+  .add-task-row button, .add-edit-row button { background: var(--card-surface); border: 1px solid rgba(255,255,255,0.03); border-radius: var(--radius-sm); width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; color: var(--text-muted); cursor: pointer; transition: all 0.2s; }
+  .add-task-row button:all, .add-edit-row button:all { color: #fff; background: rgba(255,255,255,0.08); }
 
   /* JOURNAL TEXTAREA */
-  .notes-wrap { margin-top: 24px; }
-  .notes-wrap textarea { width: 100%; font-size: 13px; padding: 12px; border: 1px solid rgba(255,255,255,0.06); border-radius: var(--radius); background: var(--card); color: var(--text); resize: none; min-height: 100px; font-family: inherit; outline: none; line-height: 1.5; }
-  .notes-wrap textarea:focus { border-color: var(--border-bright); }
+  .notes-wrap { margin-top: 28px; }
+  .notes-wrap textarea { width: 100%; font-size: 13px; padding: 14px; border: 1px solid rgba(255,255,255,0.02); border-radius: var(--radius); background: var(--card); color: #cbd5e1; resize: none; min-height: 110px; font-family: inherit; outline: none; line-height: 1.6; }
+  .notes-wrap textarea:focus { border-color: rgba(255,255,255,0.08); }
 
-  /* DIALED CALENDAR DESIGN WITH PERCENTS */
-  .cal-month-nav { display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px; }
-  .cal-month-nav span { font-size: 15px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; }
-  .cal-month-nav button { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); width: 40px; height: 40px; color: var(--text); display: flex; align-items: center; justify-content: center; cursor: pointer; }
-  .cal-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 6px; margin-bottom: 20px; }
-  .cal-head-cell { font-size: 10px; font-weight: 700; color: var(--text-muted); text-align: center; text-transform: uppercase; padding-bottom: 4px; }
-  .cal-cell { aspect-ratio: 1; border-radius: 8px; border: 1px solid rgba(255,255,255,0.03); display: flex; flex-direction: column; align-items: center; justify-content: center; background: var(--card); font-size: 14px; font-weight: 600; color: var(--text-muted); position: relative; cursor: pointer; padding: 2px; }
-  .cal-cell span { line-height: 1.1; }
-  .cal-pct { font-size: 9px; font-weight: 700; color: var(--text-muted); margin-top: 2px; opacity: 0.85; }
-  .cal-cell.today { border: 1px solid var(--border-bright); color: var(--text); }
-  .cal-cell.selected { background: var(--red-glow); border-color: var(--red); color: var(--text); }
-  .cal-cell.beast-day { background: rgba(255, 51, 58, 0.2); border-color: var(--border-bright); color: #ff5258; }
-  .cal-cell.beast-day .cal-pct { color: #ffa3a6; }
-  .cal-cell.has-data { color: var(--text); }
-  .cal-cell.has-data .cal-pct { color: rgba(255,255,255,0.6); }
+  /* MATHEMATICAL CALENDAR ARCHITECTURE */
+  .cal-month-nav { display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px; }
+  .cal-month-nav span { font-family: 'Space Grotesk', sans-serif; font-size: 16px; font-weight: 500; letter-spacing: -0.2px; }
+  .cal-month-nav button { background: var(--card); border: 1px solid rgba(255,255,255,0.02); border-radius: var(--radius-sm); width: 38px; height: 38px; color: var(--text-muted); display: flex; align-items: center; justify-content: center; cursor: pointer; }
+  .cal-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 8px; margin-bottom: 24px; }
+  .cal-head-cell { font-family: 'Space Grotesk', sans-serif; font-size: 11px; font-weight: 500; color: var(--text-muted); text-align: center; padding-bottom: 6px; opacity: 0.6; }
+  .cal-cell { aspect-ratio: 1; border-radius: 10px; border: 1px solid rgba(255,255,255,0.01); display: flex; flex-direction: column; align-items: center; justify-content: center; background: var(--card); font-family: 'Space Grotesk', sans-serif; font-size: 13px; font-weight: 400; color: var(--text-muted); position: relative; cursor: pointer; transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1); }
+  .cal-cell span { line-height: 1; color: var(--text-muted); }
+  .cal-pct { font-size: 9px; font-weight: 500; margin-top: 3px; opacity: 0.7; font-family: 'Space Grotesk', sans-serif; }
+  
+  .cal-cell.today { border: 1px solid rgba(255,255,255,0.15); }
+  .cal-cell.today span { color: #fff; }
+  .cal-cell.selected { border: 1px solid #fff !important; }
+  
+  /* Matrix state color variations */
+  .cal-cell.has-data { background: #0b121f; border-color: rgba(255,255,255,0.02); }
+  .cal-cell.has-data span { color: #94a3b8; }
+  .cal-cell.has-data .cal-pct { color: var(--text-muted); }
+
+  .cal-cell.beast-day { background: linear-gradient(145deg, #051614 0%, #0a241f 100%); border-color: rgba(0,255,196,0.15); }
+  .cal-cell.beast-day span { color: var(--emerald); font-weight: 500; }
+  .cal-cell.beast-day .cal-pct { color: #00ffc4; opacity: 0.9; }
+
   .cal-cell.empty { opacity: 0; pointer-events: none; }
 
-  /* DETAILED CALENDAR CARD INTERACTIVE DAY HUD */
-  .day-detail { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); padding: 16px; margin-top: 16px; box-shadow: var(--shadow); }
-  .day-detail-title { font-size: 14px; font-weight: 700; text-transform: uppercase; margin-bottom: 12px; border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 8px; }
-  .day-detail-stat { font-size: 12px; color: var(--text-muted); margin-bottom: 8px; display: flex; align-items: center; gap: 6px; }
-  .day-detail-grid { display: flex; flex-direction: column; gap: 10px; margin-top: 14px; }
-  .day-card { background: rgba(0,0,0,0.2); border: 1px solid rgba(255,255,255,0.03); border-radius: 8px; padding: 10px; }
-  .day-card h4 { font-size: 11px; font-weight: 700; color: var(--text-muted); margin-bottom: 6px; text-transform: uppercase; }
-  .day-task-list { display: flex; flex-direction: column; gap: 4px; }
-  .day-task-item { display: flex; gap: 8px; font-size: 12px; color: var(--text); }
+  /* SYSTEM HUB DATA DISPLAY AREA */
+  .day-detail { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); padding: 20px; margin-top: 20px; box-shadow: var(--shadow); }
+  .day-detail-title { font-family: 'Space Grotesk', sans-serif; font-size: 15px; font-weight: 500; margin-bottom: 16px; border-bottom: 1px solid rgba(255,255,255,0.03); padding-bottom: 12px; color: #fff; }
+  .day-detail-stat { font-size: 12.5px; color: var(--text-muted); margin-bottom: 10px; display: flex; align-items: center; gap: 8px; }
+  .day-detail-grid { display: flex; flex-direction: column; gap: 10px; margin-top: 16px; }
+  .day-card { background: rgba(0,0,0,0.15); border: 1px solid rgba(255,255,255,0.01); border-radius: 10px; padding: 12px; }
+  .day-card h4 { font-family: 'Space Grotesk', sans-serif; font-size: 11px; font-weight: 500; color: var(--text-muted); margin-bottom: 8px; text-transform: uppercase; letter-spacing: 0.5px; }
+  .day-task-list { display: flex; flex-direction: column; gap: 6px; }
+  .day-task-item { display: flex; gap: 10px; font-size: 12.5px; color: #cbd5e1; }
   .day-task-item.done { color: var(--text-muted); text-decoration: line-through; }
-  .day-task-bullet { width: 5px; height: 5px; border-radius: 50%; background: var(--red); margin-top: 6px; flex-shrink: 0; }
-  .day-detail-notes { font-size: 12px; color: var(--text-muted); margin-top: 12px; padding-top: 12px; border-top: 1px solid rgba(255,255,255,0.05); font-style: italic; }
+  .day-task-bullet { width: 4px; height: 4px; border-radius: 50%; background: var(--text-muted); margin-top: 7px; flex-shrink: 0; }
+  .day-task-item.done .day-task-bullet { background: var(--emerald); }
+  .day-detail-notes { font-size: 12.5px; color: #94a3b8; margin-top: 14px; padding-top: 14px; border-top: 1px solid rgba(255,255,255,0.03); font-style: italic; line-height: 1.5; }
 
-  /* MANAGEMENT SCHEDULE ENGINE (EDIT) */
-  .edit-section { background: var(--card); border: 1px solid rgba(255,255,255,0.04); border-radius: var(--radius); padding: 14px; margin-bottom: 12px; }
-  .edit-phase-header { display: flex; align-items: center; gap: 8px; margin-bottom: 10px; }
-  .ep-num { background: rgba(255,51,58,0.1); border-radius: 4px; padding: 2px 6px; font-size: 11px; font-weight: 700; color: var(--red); }
-  .ep-name-input { flex: 1; font-size: 13px; font-weight: 600; background: transparent; border: none; border-bottom: 1px solid rgba(255,255,255,0.1); color: var(--text); outline: none; padding: 4px 0; font-family: inherit; }
-  .ep-name-input:focus { border-bottom-color: var(--red); }
-  .ep-time-input { width: 90px; font-size: 11px; background: transparent; border: none; border-bottom: 1px solid rgba(255,255,255,0.1); color: var(--text-muted); outline: none; text-align: right; font-family: inherit; }
-  .ep-time-input:focus { border-bottom-color: var(--red); }
-  .edit-task-row { display: flex; align-items: center; gap: 8px; margin-bottom: 6px; background: #090a10; border-radius: 8px; padding: 8px 10px; border: 1px solid rgba(255,255,255,0.02); }
-  .edit-task-row input { flex: 1; font-size: 12px; background: transparent; border: none; color: var(--text); outline: none; font-family: inherit; }
+  /* COMPILER METHOD (EDIT ROUTINE PANEL) */
+  .edit-section { background: var(--card); border: 1px solid rgba(255,255,255,0.01); border-radius: var(--radius); padding: 16px; margin-bottom: 14px; }
+  .edit-phase-header { display: flex; align-items: center; gap: 10px; margin-bottom: 14px; }
+  .ep-num { background: rgba(255,255,255,0.03); border-radius: 6px; padding: 2px 8px; font-family: 'Space Grotesk', sans-serif; font-size: 11px; font-weight: 500; color: var(--text-muted); }
+  .ep-name-input { flex: 1; font-size: 14px; font-weight: 500; background: transparent; border: none; border-bottom: 1px solid rgba(255,255,255,0.05); color: #fff; outline: none; padding: 4px 0; font-family: inherit; }
+  .ep-name-input:focus { border-bottom-color: var(--emerald); }
+  .ep-time-input { width: 95px; font-family: 'Space Grotesk', sans-serif; font-size: 11px; background: transparent; border: none; border-bottom: 1px solid rgba(255,255,255,0.05); color: var(--text-muted); outline: none; text-align: right; font-family: inherit; }
+  .ep-time-input:focus { border-bottom-color: var(--emerald); }
+  .edit-task-row { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; background: rgba(0,0,0,0.15); border-radius: var(--radius-sm); padding: 10px 12px; border: 1px solid rgba(255,255,255,0.01); }
+  .edit-task-row input { flex: 1; font-size: 13px; background: transparent; border: none; color: #cbd5e1; outline: none; font-family: inherit; }
   .edit-task-row .del-btn { cursor: pointer; color: var(--text-muted); padding: 2px; }
 
-  .action-buttons { display: grid; grid-template-columns: 2fr 1fr; gap: 10px; margin-top: 16px; }
-  .save-btn { background: var(--red); color: #fff; border: none; border-radius: var(--radius); padding: 12px; font-size: 14px; font-weight: 600; cursor: pointer; font-family: inherit; box-shadow: 0 4px 12px rgba(255,51,58,0.3); display: flex; align-items: center; justify-content: center; gap: 6px; }
-  .reset-btn { background: transparent; color: var(--text-muted); border: 1px solid rgba(255,255,255,0.1); border-radius: var(--radius); padding: 12px; font-size: 13px; font-weight: 500; cursor: pointer; font-family: inherit; }
+  .action-buttons { display: grid; grid-template-columns: 2fr 1fr; gap: 12px; margin-top: 20px; }
+  .save-btn { background: linear-gradient(135deg, #00cb9c 0%, var(--emerald) 100%); color: #03050a; border: none; border-radius: var(--radius); padding: 14px; font-size: 13.5px; font-weight: 600; font-family: 'Space Grotesk', sans-serif; cursor: pointer; box-shadow: 0 8px 24px rgba(0, 255, 196, 0.15); display: flex; align-items: center; justify-content: center; gap: 6px; }
+  .reset-btn { background: transparent; color: var(--text-muted); border: 1px solid rgba(255,255,255,0.05); border-radius: var(--radius); padding: 14px; font-size: 13px; font-weight: 500; cursor: pointer; font-family: inherit; }
 
-  /* DYNAMIC HUD SYSTEM TOAST */
-  .toast { position: fixed; bottom: 85px; left: 50%; transform: translateX(-50%) translateY(40px); background: #11131c; border: 1px solid var(--border-bright); border-radius: 30px; padding: 10px 24px; font-size: 12px; font-weight: 600; color: #ff8084; opacity: 0; transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1); z-index: 999; pointer-events: none; box-shadow: var(--shadow); white-space: nowrap; }
+  /* METICULOUS NOTIFICATION POPUP */
+  .toast { position: fixed; bottom: 95px; left: 50%; transform: translateX(-50%) translateY(30px); background: #0a0e17; border: 1px solid rgba(0, 255, 196, 0.2); border-radius: 30px; padding: 10px 24px; font-family: 'Space Grotesk', sans-serif; font-size: 11.5px; font-weight: 500; color: var(--emerald); opacity: 0; transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1); z-index: 999; pointer-events: none; box-shadow: var(--shadow); white-space: nowrap; letter-spacing: 0.2px; }
   .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
 </style>
 </head>
@@ -243,24 +275,26 @@
     <div class="hero-card">
       <div class="logo-wrap">
         <div>
-          <div class="logo"><span>⚔</span> BEAST TRACKER</div>
+          <div class="logo"><span>//</span> AURA OPERATING SYSTEM</div>
         </div>
-        <div class="streak-pill"><i class="ti ti-flame"></i> <span id="streakNum">0</span> DAY STREAK</div>
+        <div class="streak-pill"><i class="ti ti-bolt"></i> <span id="streakNum">0</span> CYCLE STREAK</div>
       </div>
     </div>
   </div>
 
+  <!-- APPLICATION STICKY BOTTOM FOOTER ENGINE -->
   <div class="tabs">
-    <button class="tab active" onclick="showTab('today',this)"><i class="ti ti-calendar-event"></i>Today</button>
-    <button class="tab" onclick="showTab('calendar',this)"><i class="ti ti-calendar"></i>Calendar</button>
-    <button class="tab" onclick="showTab('edit',this)"><i class="ti ti-settings"></i>Edit Routine</button>
+    <button class="tab active" onclick="showTab('today',this)"><i class="ti ti-activity"></i>Console</button>
+    <button class="tab" onclick="showTab('calendar',this)"><i class="ti ti-grid-dots"></i>Matrix</button>
+    <button class="tab" onclick="showTab('edit',this)"><i class="ti ti-adjustments-horizontal"></i>Configure</button>
   </div>
 
+  <!-- CONTAINER ENGINE: TODAY PANEL -->
   <div id="tab-today" class="section active">
     <div class="date-nav">
       <button onclick="changeDay(-1)"><i class="ti ti-chevron-left"></i></button>
       <div class="date-label" id="dateLabelToday"></div>
-      <button class="today-btn" onclick="goToday()">TODAY</button>
+      <button class="today-btn" onclick="goToday()">CURRENT</button>
       <button onclick="changeDay(1)"><i class="ti ti-chevron-right"></i></button>
     </div>
 
@@ -268,24 +302,25 @@
       <div class="score-num" id="scoreNum">0 <sub>/ 0</sub></div>
       <div class="progress-wrap">
         <div class="progress-track"><div class="progress-fill" id="progFill" style="width:0%"></div></div>
-        <div class="progress-label" id="progLabel">Start checking off tasks</div>
+        <div class="progress-label" id="progLabel">Analyzing routine protocols...</div>
       </div>
-      <div class="rating-badge rating-weak" id="ratingBadge">Not started</div>
+      <div class="rating-badge rating-weak" id="ratingBadge">Idle</div>
     </div>
 
     <div class="sop-section">
-      <div class="section-label">DAILY SOPs</div>
+      <div class="section-label">Invariant Execution Constraints (SOPs)</div>
       <div class="sop-items" id="sopItems"></div>
     </div>
 
     <div id="phasesContainer"></div>
 
     <div class="notes-wrap">
-      <div class="section-label">DAILY JOURNAL</div>
-      <textarea id="notesArea" placeholder="Aaj ka reflection... kya achieve kiya, kya miss hua..." onchange="saveNotes()"></textarea>
+      <div class="section-label">End-of-Cycle Analysis Log</div>
+      <textarea id="notesArea" placeholder="Log deep technical milestones, structural blockers, or general optimization data notes..." onchange="saveNotes()"></textarea>
     </div>
   </div>
 
+  <!-- CONTAINER ENGINE: CALENDAR PANEL -->
   <div id="tab-calendar" class="section">
     <div class="cal-month-nav">
       <button onclick="calNav(-1)"><i class="ti ti-chevron-left"></i></button>
@@ -296,11 +331,12 @@
     <div class="day-detail" id="dayDetail" style="display:none"></div>
   </div>
 
+  <!-- CONTAINER ENGINE: ROUTINE EDITOR MANAGEMENT -->
   <div id="tab-edit" class="section">
     <div id="editPhasesContainer"></div>
     <div class="action-buttons">
-      <button class="save-btn" onclick="saveSchedule()"><i class="ti ti-device-floppy"></i> Save Routine</button>
-      <button class="reset-btn" onclick="resetDefault()">Reset</button>
+      <button class="save-btn" onclick="saveSchedule()"><i class="ti ti-cpu"></i> Flash Routine Memory</button>
+      <button class="reset-btn" onclick="resetDefault()">Defaults</button>
     </div>
   </div>
 </div>
@@ -310,36 +346,36 @@
 <script>
 const DEFAULT_SCHEDULE = [
   {name:"System Shock",time:"05:00–08:30",tasks:[
-    {t:"05:00 — Alarm bajte hi uthna, 1 second nahi sochna",done:false},
-    {t:"05:10 — Thanda paani muh par, 2 gilaas paani peena",done:false},
-    {t:"05:30–07:00 — 5KM run ya 100 pushups+squats circuit",done:false},
-    {t:"07:30–08:30 — Thande paani se naha, taiyaar ho",done:false}
+    {t:"05:00 — Instant waking execution. Absolute zero friction.",done:false},
+    {t:"05:10 — Hydration sequence. Cold water facial reset.",done:false},
+    {t:"05:30–07:00 — Aerobic or calisthenics metabolic engine drive.",done:false},
+    {t:"07:30–08:30 — High-tonus physical curation & preparation.",done:false}
   ]},
-  {name:"8th House Grind",time:"09:00–01:30",tasks:[
-    {t:"09:00 — Library mein entry, phone airplane mode",done:false},
-    {t:"09:00–12:30 — LeetCode Medium/Hard: Graphs, DP, Trees",done:false},
-    {t:"12:30–01:30 — OS, DBMS, Computer Networks revision",done:false}
+  {name:"Deep Work Engine",time:"09:00–13:30",tasks:[
+    {t:"09:00 — Isolation parameter. Device offline configuration.",done:false},
+    {t:"09:00–12:30 — Complex structural syntax (Algorithms & Logic builds)",done:false},
+    {t:"12:30–13:30 — Core architectural review (OS/DBMS/Low-level patterns)",done:false}
   ]},
-  {name:"Pitta Control",time:"01:30–03:00",tasks:[
-    {t:"01:30 — Saada khana + ek gilaas chaach",done:false},
-    {t:"02:00–03:00 — 30 min brain cache clear (eyes closed)",done:false}
+  {name:"Homeostatic Calibration",time:"13:30–15:00",tasks:[
+    {t:"13:30 — Clean bio-fuel integration.",done:false},
+    {t:"14:00–15:00 — Cognitive cache dump. Neurological decompression.",done:false}
   ]},
-  {name:"Hunt & Architecture",time:"03:00–06:30",tasks:[
-    {t:"03:00–05:00 — System Design: HLD/LLD study",done:false},
-    {t:"05:00–06:30 — Apply to 25 companies (Naukri, Instahyre, Wellfound)",done:false}
+  {name:"Synthesis & Distribution",time:"15:00–18:30",tasks:[
+    {t:"15:00–17:00 — Systems design mapping (High/Low-level topology)",done:false},
+    {t:"17:00–18:30 — Network visibility outreach & strategic routing",done:false}
   ]},
-  {name:"The Provider",time:"07:00–09:30",tasks:[
-    {t:"07:00–08:30 — Papa ke paas baithna, confidence dena",done:false},
-    {t:"08:30–09:30 — Halka dinner + 15 min walk",done:false}
+  {name:"Kinship Protocol",time:"19:00–21:30",tasks:[
+    {t:"19:00–20:30 — Grounded integration with inner circle architecture.",done:false},
+    {t:"20:30–21:30 — Micro-nutrient alignment + slow kinetic integration",done:false}
   ]},
-  {name:"Shutdown",time:"09:30–10:00",tasks:[
-    {t:"09:30 — Phone & laptop doosre kamre mein",done:false},
-    {t:"09:40 — Journal mein likhna: aaj 10LPA ke liye kya kiya",done:false},
-    {t:"10:00 — Aankhein band, neend",done:false}
+  {name:"Terminal Shutdown",time:"21:30–22:00",tasks:[
+    {t:"21:30 — Total environmental photon reduction. Devices off.",done:false},
+    {t:"21:40 — Analytical log recording: metrics review.",done:false},
+    {t:"22:00 — Complete synaptic rest sequence.",done:false}
   ]}
 ];
 
-const SOPS = ["Zero inbox refreshing","Zero relapse — stay clean","No complaining — warrior mode"];
+const SOPS = ["Zero reactive data loop parsing","Zero behavioral relapse architecture","Unconditional structural resilience"];
 
 let viewDate = todayKey();
 let calYear, calMonth, selectedCalDate = null;
@@ -381,10 +417,10 @@ function calcScore(data){
 }
 
 function getRating(pct){
-  if(pct>=85)return{cls:'rating-beast',label:'Beast Mode'};
-  if(pct>=60)return{cls:'rating-solid',label:'Solid Day'};
-  if(pct>0)return{cls:'rating-weak',label:'Work More'};
-  return{cls:'rating-weak',label:'Not started'};
+  if(pct>=85)return{cls:'rating-beast',label:'Optimal'};
+  if(pct>=60)return{cls:'rating-solid',label:'Functional'};
+  if(pct>0)return{cls:'rating-weak',label:'Suboptimal'};
+  return{cls:'rating-weak',label:'Inert'};
 }
 
 function calcStreak(){
@@ -416,20 +452,20 @@ function renderToday(){
 
   document.getElementById('scoreNum').innerHTML=done+' <sub>/ '+total+'</sub>';
   document.getElementById('progFill').style.width=pct+'%';
-  document.getElementById('progLabel').textContent=pct+'% complete — '+done+' tasks done';
+  document.getElementById('progLabel').textContent=pct+'% matrix execution — ' + done + ' elements solid';
   const rb=document.getElementById('ratingBadge');
   rb.className='rating-badge '+rating.cls;
   rb.textContent=rating.label;
 
   const d=new Date(viewDate+'T00:00:00');
-  document.getElementById('dateLabelToday').textContent=d.toLocaleDateString('en-IN',{weekday:'short',day:'numeric',month:'short'});
+  document.getElementById('dateLabelToday').textContent=d.toLocaleDateString('en-US',{weekday:'short',day:'numeric',month:'short'}).toUpperCase();
 
   const sopEl=document.getElementById('sopItems');
   sopEl.innerHTML='';
   SOPS.forEach((s,i)=>{
     const ch=document.createElement('div');
     ch.className='sop-chip'+(data.sops[i]?' done':'');
-    ch.innerHTML=(data.sops[i]?'<i class="ti ti-square-check-filled"></i>':'<i class="ti ti-square"></i>')+' '+s;
+    ch.innerHTML=(data.sops[i]?'<i class="ti ti-circle-check-filled"></i>':'<i class="ti ti-circle-dashed"></i>')+' '+s;
     ch.onclick=()=>{data.sops[i]=!data.sops[i];saveData(viewDate,data);renderToday();renderStreak();};
     sopEl.appendChild(ch);
   });
@@ -441,13 +477,13 @@ function renderToday(){
     const div=document.createElement('div');
     div.className='phase-block'+(pi===0?' open':'');
     div.innerHTML=`<div class="phase-head" onclick="togglePhase(this.parentElement)">
-      <div class="ph-num">${pi+1}</div>
+      <div class="ph-num">${String(pi+1).padStart(2,'0')}</div>
       <div class="ph-info">
         <div class="ph-title">${ph.name}</div>
         <div class="ph-time">${ph.time}</div>
       </div>
       <div class="ph-meta">
-        <div class="ph-check">${pDone}/${ph.tasks.length}</div>
+        <div class="ph-check">${pDone} / ${ph.tasks.length}</div>
       </div>
       <i class="ti ti-chevron-down ph-arrow"></i>
     </div>
@@ -457,10 +493,10 @@ function renderToday(){
         <div class="task-text-wrap" onclick="toggleTask(${pi},${ti})">
           <div class="task-text${t.done?' done':''}">${t.t}</div>
         </div>
-        <span class="task-del" onclick="delTask(${pi},${ti})"><i class="ti ti-trash"></i></span>
+        <span class="task-del" onclick="delTask(${pi},${ti})"><i class="ti ti-dots-vertical"></i></span>
       </div>`).join('')}
       <div class="add-task-row">
-        <input type="text" placeholder="Add task to this phase..." id="addInp${pi}" onkeydown="if(event.key==='Enter')addTask(${pi})"/>
+        <input type="text" placeholder="Append execution logic entry..." id="addInp${pi}" onkeydown="if(event.key==='Enter')addTask(${pi})"/>
         <button onclick="addTask(${pi})"><i class="ti ti-plus"></i></button>
       </div>
     </div>`;
@@ -535,7 +571,7 @@ function calNav(n){
 
 function renderCal(){
   const months=['January','February','March','April','May','June','July','August','September','October','November','December'];
-  document.getElementById('calMonthLabel').textContent=months[calMonth]+' '+calYear;
+  document.getElementById('calMonthLabel').textContent=months[calMonth].toUpperCase() + ' ' + calYear;
   const grid=document.getElementById('calGrid');
   grid.innerHTML='';
   ['S','M','T','W','T','F','S'].forEach(d=>{
@@ -574,17 +610,17 @@ function showDayDetail(key){
   const detail=document.getElementById('dayDetail');
   detail.style.display='block';
   const d=new Date(key+'T00:00:00');
-  const dayLabel=d.toLocaleDateString('en-IN',{weekday:'short',day:'numeric',month:'short'});
+  const dayLabel=d.toLocaleDateString('en-US',{weekday:'short',day:'numeric',month:'short'}).toUpperCase();
   const{done,total}=calcScore(data);
   const pct=total>0?Math.round(done/total*100):0;
   const rating=getRating(pct);
   const sopDone=data.sops.filter(Boolean).length;
   const tasksHtml=data.phases.map((phase,pi)=>`<div class="day-card"><h4>${phase.name} · ${phase.time}</h4><div class="day-task-list">${phase.tasks.map((task,ti)=>`<div class="day-task-item${task.done?' done':''}"><span class="day-task-bullet"></span><span class="day-task-label">${task.t}</span></div>`).join('')}</div></div>`).join('');
   detail.innerHTML=`<div class="day-detail-title">${dayLabel}</div>
-    <div class="day-detail-stat"><i class="ti ti-checklist" style="font-size:14px;color:var(--red)"></i> Tasks: ${done}/${total} (${pct}%) <span class="rating-badge ${rating.cls}" style="margin-left:auto">${rating.label}</span></div>
-    <div class="day-detail-stat"><i class="ti ti-shield-check" style="font-size:14px;color:var(--red)"></i> SOPs completed: ${sopDone}/3</div>
+    <div class="day-detail-stat"><i class="ti ti-cpu" style="font-size:14px;color:var(--emerald)"></i> Allocation Index: ${done}/${total} (${pct}%) <span class="rating-badge ${rating.cls}" style="margin-left:auto">${rating.label}</span></div>
+    <div class="day-detail-stat"><i class="ti ti-fingerprint" style="font-size:14px;color:var(--emerald)"></i> Invariant Compliance: ${sopDone}/3</div>
     <div class="day-detail-grid">${tasksHtml}</div>
-    ${data.notes?`<div class="day-detail-notes"><i class="ti ti-notebook" style="margin-right:5px"></i>"${data.notes}"</div>`:''}`;
+    ${data.notes?`<div class="day-detail-notes"><i class="ti ti-terminal" style="margin-right:6px"></i>"${data.notes}"</div>`:''}`;
 }
 
 function renderEdit(){
@@ -597,9 +633,9 @@ function renderEdit(){
     wrap.className='edit-section';
     const header=document.createElement('div');
     header.className='edit-phase-header';
-    header.innerHTML=`<span class="ep-num">${pi+1}</span>
-      <input class="ep-name-input" type="text" value="${ph.name}" id="pname${pi}" placeholder="Phase name"/>
-      <input class="ep-time-input" type="text" value="${ph.time}" id="ptime${pi}" placeholder="time"/>`;
+    header.innerHTML=`<span class="ep-num">${String(pi+1).padStart(2,'0')}</span>
+      <input class="ep-name-input" type="text" value="${ph.name}" id="pname${pi}" placeholder="Phase Identity Protocol"/>
+      <input class="ep-time-input" type="text" value="${ph.time}" id="ptime${pi}" placeholder="Temporal bounds"/>`;
     wrap.appendChild(header);
 
     const taskWrap=document.createElement('div');
@@ -607,14 +643,14 @@ function renderEdit(){
       const row=document.createElement('div');
       row.className='edit-task-row';
       row.innerHTML=`<input type="text" value="${t.t}" id="ptask${pi}_${ti}"/>
-        <span class="del-btn" onclick="removeEditTask(${pi},${ti})"><i class="ti ti-x"></i></span>`;
+        <span class="del-btn" onclick="removeEditTask(${pi},${ti})"><i class="ti ti-minus"></i></span>`;
       taskWrap.appendChild(row);
     });
     wrap.appendChild(taskWrap);
 
     const addRow=document.createElement('div');
     addRow.className='add-edit-row';
-    addRow.innerHTML=`<input type="text" placeholder="Add task to this phase..." id="editAddInp${pi}" onkeydown="if(event.key==='Enter')addEditTask(${pi})"/>
+    addRow.innerHTML=`<input type="text" placeholder="Append execution requirement item..." id="editAddInp${pi}" onkeydown="if(event.key==='Enter')addEditTask(${pi})"/>
       <button onclick="addEditTask(${pi})"><i class="ti ti-plus"></i></button>`;
     wrap.appendChild(addRow);
     c.appendChild(wrap);
@@ -645,14 +681,14 @@ function saveSchedule(){
     });
   });
   try{localStorage.setItem('bf_schedule',JSON.stringify(editSchedule));}catch(e){}
-  showToast('Schedule saved!');
+  showToast('Routine logic array updated.');
 }
 
 function resetDefault(){
-  if(confirm('Reset schedule to default Gand Faad Routine?')){
+  if(confirm('Overwite local memory configuration with defaults?')){
     try{localStorage.removeItem('bf_schedule');}catch(e){}
     renderEdit();
-    showToast('Reset to default!');
+    showToast('Array reset successful.');
   }
 }
 
